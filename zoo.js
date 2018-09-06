@@ -18,6 +18,11 @@ const run = () => {
     let stinger = new Bee("Stinger");
     stinger.eat("ice cream");
     stinger.eat("pollen");
+
+    let zoebot = new Zookeper("ZoeBot");
+    zoebot.feedAnimals([tigger, pooh, rarity, gemma, stinger], "grilled veggies");
+
+    Animal.getPopulation();
 };
 
 // const sleep = (name) => {
@@ -28,20 +33,27 @@ const run = () => {
 //     console.log(name + " eats " + food);
 //     food===favoriteFood ? console.log("YUM!!! " + name + " wants more " + food) : sleep(name);
 // };
+
+let animalPopulation = 0;
 class Animal{
     constructor(name, favoriteFood){
         this.name = name;
         this.favoriteFood = favoriteFood;
+        animalPopulation++;
     }
 
     sleep(){
         console.log(this.name + " sleeps for 8 hours");
-    };
+    }
 
     eat(food){
         console.log(this.name + " eats " + food);
         food===this.favoriteFood ? console.log("YUM!!! " + this.name + " wants more " + food) : this.sleep();
-    };
+    }
+
+    static getPopulation(){
+        return animalPopulation;
+    }
 }
 
 class Tiger extends Animal{
@@ -100,6 +112,20 @@ class Bee extends Animal{
             this.sleep();
         }else{
             console.log("YUCK!!! " + this.name + " will not eat " + food);
+        }
+    }
+}
+
+class Zookeper{
+    constructor(name){
+        this.name = name;
+    }
+
+    feedAnimals(animals, food){
+        console.log(this.name + " is feeding " + food + " to " + animals.length + " of "
+            + Animal.getPopulation() + " total animals");
+        for(let n of animals){
+            n.eat(food);
         }
     }
 }
